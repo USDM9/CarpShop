@@ -9,7 +9,7 @@ const productos = [
     {
         id: 'abrigo-01',
         titulo:'Abrigo 01',
-        imagen: './img/abrigos/01.jpg',
+        imagen: '../img/abrigos/01.jpg',
         categoria: {
             nombre: 'Abrigos',
             id: 'abrigos'
@@ -166,7 +166,7 @@ const productos = [
     {
         id: 'pantalon-01',
         titulo:'Pantalon 01',
-        imagen: './img/pantalones/01.jpg',
+        imagen: '../img/pantalones/01.jpg',
         categoria: {
             nombre: 'Pantalones',
             id: 'pantalones'
@@ -286,7 +286,7 @@ botonesCategoria.forEach(boton => {
     
     if(productosEnCarritoLS){
         productosEnCarrito = productosEnCarritoLS;
-        actualizarNumerito()
+        
     }else {
         productosEnCarrito = [];
     };
