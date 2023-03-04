@@ -546,7 +546,7 @@ main {
 
     .carrito-producto {
         grid-template-columns: 100%;
-        grid-template-rows: 1fr 33%  11%;
+        grid-template-rows: 1fr 0.5fr;
         gap: 0;
         background-color: white;
     }
@@ -568,13 +568,13 @@ main {
 
     .carrito-producto-titulo,
     .carrito-producto-cantidad{
-        left: 5%;
+        left: 15%;
     }
 
     .carrito-producto-precio,
     .carrito-producto-subtotal{
         flex-direction: row;
-        left: 50%;
+        left: 55%;
     }
 
     .carrito-producto-eliminar {
