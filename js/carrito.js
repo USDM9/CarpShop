@@ -18,6 +18,8 @@ const contenedorTotal = document.querySelector('#total')
 const botonComprar = document.querySelector('#carrito-accciones-comprar');
 
 
+
+
 /* main del carito */
 
 function cargarProductosCarrito(){
@@ -97,7 +99,7 @@ function vaciarCarrito(){
 function actualizarTotal(){
     const totalCalculado = productosEnCarrito.reduce((acc, producto) => acc + producto.precio * producto.cantidad,0);
 
-    contenedorTotal.innerText = `${totalCalculado}`;
+    contenedorTotal.innerText = `$${totalCalculado}`;
 }
 
 
