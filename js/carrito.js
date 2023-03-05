@@ -81,19 +81,69 @@ function actualizarBotonesEliminar() {
 };
 
 function eliminarDelCarrito(e) {
+
+
+    Toastify({
+        text: "Producto eliminado",
+        duration: 3000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #4b33a8, #785ce9)",
+            borderRadius: '1rem',
+            textTransform: 'uppercase',
+            fontSize: '.75rem'
+        },
+        offset: {
+            x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+            y: '3.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+            },
+        onClick: function(){} // Callback after click
+    }).showToast();
+
+    
     const idBoton = e.currentTarget.id;
-    const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
-    productosEnCarrito.splice(index, 1);
-    cargarProductosCarrito();
-    localStorage.setItem('productos-en-carrito',JSON.stringify(productosEnCarrito));
+    productosEnCarrito.map(producto => {
+        if(producto.id === idBoton && producto.cantidad > 1){
+            producto.cantidad = producto.cantidad - 1;
+            cargarProductosCarrito();
+        }else if(producto.id === idBoton && producto.cantidad === 1){
+            const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+            productosEnCarrito.splice(index, 1);
+            cargarProductosCarrito();
+            localStorage.setItem('productos-en-carrito',JSON.stringify(productosEnCarrito));
+        }
+    })
+    
 };
 
-botonVaciar.addEventListener('click', vaciarCarrito)
+botonVaciar.addEventListener('click', vaciarCarrito);
 
 function vaciarCarrito(){
-    productosEnCarrito.length = 0;
-    localStorage.setItem('productos-en-carrito',JSON.stringify(productosEnCarrito));
-    cargarProductosCarrito();
+
+        Swal.fire({
+            title: '<strong>¿Estas Seguro?</strong>',
+            icon: 'question',
+            html:`<b>Se eliminaran ${productosEnCarrito.reduce(
+                (acc , producto) => acc + producto.cantidad ,0
+                )} productos</b>`,
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:'Si',
+            cancelButtonText:'No',
+
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            productosEnCarrito.length = 0;
+            localStorage.setItem('productos-en-carrito',JSON.stringify(productosEnCarrito));
+            cargarProductosCarrito();
+        }
+        })
+
 };
 
 function actualizarTotal(){
@@ -108,7 +158,6 @@ function actualizarTotal(){
 botonComprar.addEventListener('click', comprarCarrito)
 
 function comprarCarrito(){
-
     productosEnCarrito.length = 0;
     localStorage.setItem('productos-en-carrito',JSON.stringify(productosEnCarrito));
     contenedorCarritoVacio.classList.add('disabled');
